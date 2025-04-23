@@ -15,9 +15,9 @@ from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn_features.transformers import DataFrameSelector
 
 ## skelarn -- models
-# from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-# from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 ## sklearn -- metrics
 from sklearn.metrics import f1_score, confusion_matrix
@@ -119,7 +119,7 @@ def train_model(X_train, y_train, plot_name='', class_weight=None):
     
     global clf_name
 
-    clf = RandomForestClassifier(n_estimators=500, max_depth=10, random_state=45, class_weight=class_weight)
+    clf = LogisticRegression(C=1.5, penalty='l2', random_state=45, max_iter=10000, class_weight=class_weight)
     clf.fit(X_train, y_train)
     y_pred_train = clf.predict(X_train)
     y_pred_test = clf.predict(X_test_final)
