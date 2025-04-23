@@ -1,5 +1,10 @@
 name: churn-imbalanced
+
 on: [push]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   run:
@@ -14,14 +19,11 @@ jobs:
           python-version: '3.9'
       - uses: iterative/setup-cml@v1
 
-
       - name: prepare environment
         run: |
-          # Your ML workflow goes here
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python script.py
-
 
       - name: Generate CML report
         env:
@@ -29,7 +31,6 @@ jobs:
         run: |
           echo "## Metrics" > report.md
           cat metrics.txt >> report.md
-          #awk 'NR%4{print "   " $0}{print ""}' metrics.txt >> report.md
 
           echo "## Confusion Matrix" >> report.md
           echo "![](./conf_matrix.png)" >> report.md
